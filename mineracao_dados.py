@@ -21,25 +21,51 @@ planilha = wb.worksheets[0]
     #print(links.text)
 
 driver = webdriver.Chrome(executable_path=r"C:\Users\lukss\Desktop\bot_mtc\chromedriver.exe")
-driver.get("https://scholar.google.com.br/scholar?q=%22Chatbot%22+AND+%22com%C3%A9rcio+eletr%C3%B4nico%22&hl=pt-BR&as_sdt=0%2C5&as_ylo=2019&as_yhi=2021")
+driver.get("https://scholar.google.com.br/scholar?start=50&q=%22Chatbot%22+AND+%22com%C3%A9rcio+eletr%C3%B4nico%22&hl=pt-BR&as_sdt=0,5&as_ylo=2019&as_yhi=2021")
 sleep(3)
 
 
-
+cont = 2
 x = 1
 y = 1
+
+
+
 for a in driver.find_elements_by_xpath('.//a'):
     nome = a.get_attribute('text')
-    planilha['A{}'.format(x)] = nome
     link = a.get_attribute('href')
-    planilha['B{}'.format(y)] = link
 
+    planilha['A{}'.format(x)] = nome
+    planilha['B{}'.format(y)] = link
     x += 1
     y += 1
+
+    cont += 1
+
 
     print(nome)
     print(link)
 
+    wb.save(r"C:\Users\lukss\Desktop\bot_mtc\Links_MTC2.xlsx")
 
-wb.save(r"C:\Users\lukss\Desktop\bot_mtc\Meu_arquivo.xlsx")
+    if nome == "7":
+        driver.find_element_by_link_text("{}".format(nome)).click()
+        driver.get("{}".format(link))
+        for a in driver.find_elements_by_xpath('.//a'):
+            nome = a.get_attribute('text')
+            link = a.get_attribute('href')
 
+            planilha['A{}'.format(x)] = nome
+            planilha['B{}'.format(y)] = link
+            x += 1
+            y += 1
+
+            cont += 1
+
+
+            print(nome)
+            print(link)
+            wb.save(r"C:\Users\lukss\Desktop\bot_mtc\Links_MTC2.xlsx")
+
+
+                                                    
