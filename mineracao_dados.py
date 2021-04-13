@@ -20,42 +20,57 @@ planilha = wb.worksheets[0]
 #for links in elementos:
     #print(links.text)
 
-driver = webdriver.Chrome(executable_path=r"C:\Users\lukss\Desktop\bot_mtc\chromedriver.exe")
-
-sleep(3)
-
-
-cont = 0
-x = 1
-y = 1
-
-
-
-
 while(True):
+    print("Selecione qual é seu navegador")
+    print("1 - Google Chrome")
+    print("2 - Microsoft Edge")
+    navegador = input(">> ")
+
+
+    if navegador == 1:
+        driver = webdriver.Chrome(executable_path=r"C:\Users\lukss\Desktop\bot_mtc\chromedriver.exe")
+
+    if navegador == 2:
+        options = EdgeOptions()
+        options.use_chromium = True
+        options.binary_location = r"C:\Users\lukss\Desktop\bot_mtc\msedgedriver.exe"
+
+        driver = Edge(options = options)
+
         
-    driver.get("https://scholar.google.com.br/scholar?start={}&q=%22Chatbot%22+AND+%22com%C3%A9rcio+eletr%C3%B4nico%22&hl=pt-BR&as_sdt=0,5&as_ylo=2019&as_yhi=2021".format(cont))
-    
-    cont += 10
+    sleep(3)
 
-    for a in driver.find_elements_by_xpath('.//a'):
+
+    cont = 0
+    x = 1
+    y = 1
+
+
+    while(True):
+
+        link = input("Cole aqui o link da sua pesquisa no Google Scholar").split("q=")
         
-        
-        nome = a.get_attribute('text')
-        link = a.get_attribute('href')
-
-        planilha['A{}'.format(x)] = nome
-        planilha['B{}'.format(y)] = link
-        x += 1
-        y += 1
-
-
-
-        print(nome)
         print(link)
-
-        wb.save(r"C:\Users\lukss\Desktop\bot_mtc\Teste_10.xlsx")
-
-
         
-                                                    
+
+        driver.get("https://scholar.google.com.br/scholar?start={}&q={}".format(cont,link))
+        
+        cont += 10
+
+        for a in driver.find_elements_by_xpath('.//a'):
+            
+            
+            nome = a.get_attribute('text')
+            link = a.get_attribute('href')
+
+            planilha['A{}'.format(x)] = nome
+            planilha['B{}'.format(y)] = link
+            x += 1
+            y += 1
+
+
+
+            print(nome)
+            print(link)
+
+            wb.save(r"C:\Users\lukss\Desktop\bot_mtc\Teste_10.xlsx")
