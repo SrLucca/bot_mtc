@@ -1,8 +1,9 @@
 from selenium import webdriver
 from openpyxl import Workbook
+from msedge.selenium_tools import EdgeOptions, Edge
 from time import sleep
 
-def codigo(driver):
+def codigo(link,navegador):
     
     wb = Workbook()
 
@@ -17,18 +18,22 @@ def codigo(driver):
     y = 1
 
 
-    while(True):
 
-        link = input("Cole aqui o link da sua pesquisa no Google Scholar").split("q=")
-        
+
+    if navegador == 2:
+        options = EdgeOptions()
+        options.use_chromium = True
+
+        driver = Edge(options = options)
         #print(link)
-        
 
-        driver.get("https://scholar.google.com.br/scholar?start={}&q={}".format(cont,link))
-        
-        cont += 10
 
-        botao = driver.find_elements_by_id("gs_nm").click()
+        driver.get("https://scholar.google.com.br/scholar?start=0&q={}".format(link[1]))
+        
+        while(True):
+            botao = driver.find_element_by_partial_link_text('Mais')
+            botao.click()
+            
 
 
         #for a in driver.find_elements_by_xpath('.//a'):
