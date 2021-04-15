@@ -3,6 +3,10 @@ from openpyxl import Workbook
 from msedge.selenium_tools import EdgeOptions, Edge
 from time import sleep
 
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 def codigo(link,navegador):
     
     wb = Workbook()
@@ -26,32 +30,33 @@ def codigo(link,navegador):
 
         driver = Edge(options = options)
         #print(link)
-
+        
+        wait = WebDriverWait(driver, 10)
 
         driver.get("https://scholar.google.com.br/scholar?start=0&q={}".format(link[1]))
         
         while(True):
+            
+            items = wait.until(EC.visibility_of_all_elements_located((By.CSS_SELECTOR, '.gs_rt a')))
+            for item in items:
+
+                nome_artigo = item.text
+                link_artigo = item.get_attribute('href')
+                print('Artigo: ',nome_artigo,'\nLink: ', link_artigo'\n')
+                planilha['A{}'.format(x)] = nome_artigo
+                lanilha['B{}'.format(y)] = link_artigo
+
             botao = driver.find_element_by_partial_link_text('Mais')
             botao.click()
             
 
 
-        #for a in driver.find_elements_by_xpath('.//a'):
             
-            
-            #nome = a.get_attribute('text')
-            #link = a.get_attribute('href')
-
-            #planilha['A{}'.format(x)] = nome
-            #planilha['B{}'.format(y)] = link
             #x += 1
             #y += 1
 
 
 
-            #print(nome)
-            #print(link)
-
-            #wb.save(r"C:\Users\lukss\Desktop\bot_mtc\Teste_10.xlsx")
+            wb.save(r"C:\Users\lukss\Desktop\bot_mtc\Teste_10.xlsx")
     
     return

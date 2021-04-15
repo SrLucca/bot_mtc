@@ -18,7 +18,7 @@ navegador = int(input(">> "))
 
 if navegador == 1:
     driver = webdriver.Chrome(executable_path=r"C:\Users\lukss\Documents\GitHub\bot_mtc\chromedriver.exe")
-    link = input("Cole aqui o link da sua pesquisa no Google Scholar").split("q=")
+    link = input("Cole aqui o link da sua pesquisa no Google Scholar\n>> ").split("q=")
     codigo(driver)
 
 if navegador == 2:
