@@ -2,6 +2,7 @@ from selenium import webdriver
 from openpyxl import Workbook
 from msedge.selenium_tools import EdgeOptions, Edge
 from time import sleep
+import os
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -30,6 +31,8 @@ def codigo(link,navegador):
 
         driver = Edge(options = options)
         #print(link)
+        root = os.getcwd()
+        os.mkdir('planilhas')
         
         wait = WebDriverWait(driver, 10)
 
@@ -42,9 +45,9 @@ def codigo(link,navegador):
 
                 nome_artigo = item.text
                 link_artigo = item.get_attribute('href')
-                print('Artigo: ',nome_artigo,'\nLink: ', link_artigo'\n')
+                print('Artigo: ',nome_artigo,'\nLink: ', link_artigo,'\n')
                 planilha['A{}'.format(x)] = nome_artigo
-                lanilha['B{}'.format(y)] = link_artigo
+                planilha['B{}'.format(y)] = link_artigo
 
             botao = driver.find_element_by_partial_link_text('Mais')
             botao.click()
@@ -56,7 +59,6 @@ def codigo(link,navegador):
             #y += 1
 
 
+            
 
-            wb.save(r"C:\Users\lukss\Desktop\bot_mtc\Teste_10.xlsx")
-    
     return

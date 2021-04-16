@@ -23,7 +23,7 @@ if navegador == 1:
 
 if navegador == 2:
     
-    link = input("Cole aqui o link da sua pesquisa no Google Scholar").split("q=")
+    link = input("Cole aqui o link da sua pesquisa no Google Scholar\n>> ").split("q=")
     codigo(link,navegador)
 
         
