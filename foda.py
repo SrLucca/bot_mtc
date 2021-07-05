@@ -5,7 +5,7 @@ def enviar(texto):
     port = 465  # For SSL
     smtp_server = "smtp.gmail.com"
     sender_email = "projetowtic@gmail.com"  # Enter your address
-    receiver_email = "luccatsoares@gmail.com"  # Enter receiver address
+    receiver_email = "zedventure16@hotmail.com"  # Enter receiver address
     password = 'DryFish@2020'
     message = f"{texto}"
 
