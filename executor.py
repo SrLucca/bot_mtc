@@ -22,21 +22,30 @@ def codigo(link,navegador):
     x = 1
     y = 1
 
+    split = link.split('q=')
+    print(split)
+    print(navegador)
 
 
-
+    
     if navegador == 2:
         options = EdgeOptions()
         options.use_chromium = True
 
         driver = Edge(options = options)
+        driver.maximize_window()
         #print(link)
         root = os.getcwd()
-        os.mkdir('planilhas')
+
+        try:
+            os.mkdir('planilhas')
         
+        except FileExistsError:
+            os.chdir('planilhas')
+
         wait = WebDriverWait(driver, 10)
 
-        driver.get("https://scholar.google.com.br/scholar?start=0&q={}".format(link[1]))
+        driver.get("https://scholar.google.com.br/scholar?start=0&q={}".format(split[1]))
         
         while(True):
             
@@ -48,7 +57,7 @@ def codigo(link,navegador):
                 print('Artigo: ',nome_artigo,'\nLink: ', link_artigo,'\n')
                 planilha['A{}'.format(x)] = nome_artigo
                 planilha['B{}'.format(y)] = link_artigo
-
+            
             botao = driver.find_element_by_partial_link_text('Mais')
             botao.click()
             
@@ -60,5 +69,5 @@ def codigo(link,navegador):
 
 
             
-
+    
     return
