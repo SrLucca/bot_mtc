@@ -1,30 +1,28 @@
 import PySimpleGUI as sg
 import os
 from PySimpleGUI.PySimpleGUI import Image
-from foda import enviar
+from executor import codigo
 
 sg.theme('DarkAmber')
 
 layout = [
-    [sg.Text('O Venture Ama o Santos')],
-    [sg.Text('Mande uma mensagem para João')],
-    [sg.InputText(size=(50,12))],
-    [sg.Image(r'C:\Users\lukss\Documents\GitHub\bot_mtc\venture.png', size=(600,600))],
-    [sg.Button('Enviar'), sg.Button('Cancelar')],
-    [sg.Output(size=(40,10))],
+    [sg.Text('Minarador Google Scholar')],
+    [sg.Text('Insira o link da pesquina na pagina 1')],
+    [sg.Text('Qual Navegador você usará?')],
+    [sg.Button('Google Chrome')],
+    [sg.Button('Microsoft Edge')],
+    [sg.Button('Sair')],
+    
 ]
 
-window = sg.Window('Mensagem Para João', layout)
+window = sg.Window('Minerador Google Scholar', layout, size=(400,300))
 
 while(True):
     event, values = window.read()
 
-    if event == sg.WIN_CLOSED or event == 'Cancelar':
+    if event == sg.WIN_CLOSED or event == 'Sair':
         break
     
-    enviar(values[0])
-    print(values[0])
 
-    
 window.close()
 
