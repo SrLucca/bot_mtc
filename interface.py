@@ -14,7 +14,6 @@ layout = [
     [sg.Button('Google Chrome')],
     [sg.Button('Microsoft Edge')],
     [sg.Button('Sair')],
-    [sg.Output(size=(100,200))],
     
 ]
 
